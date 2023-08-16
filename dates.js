@@ -41,7 +41,10 @@ console.log(`Hours: ${date3.getHours()}`);
 
 // Milliseconds from the epoch
 console.log(`Time: ${date3.getTime()}`);
-
+// passing zero means create a date that is zero milliseconds from the epoch (01/01/1970)
+let date10 = new Date(0);
+// log back a string in UTC 
+console.log('Date 10: ', date10.toUTCString());
 
 /* 
 Outputs:
@@ -61,4 +64,5 @@ Month(zero - indexed): 7
 Day of month: 7
 Hours: 1
 Time: 1692142192725
+Date 10:  Thu, 01 Jan 1970 00:00:00 GMT
  */
