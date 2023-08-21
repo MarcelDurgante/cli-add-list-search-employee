@@ -63,3 +63,26 @@ console.log(typeof bool5ToString);
 let bool5ToStrLiteral = `Bool 5: ${bool5}`;
 console.log(bool5ToStrLiteral);
 console.log(typeof bool5ToStrLiteral);
+
+/* 
+Outputs:
+
+string
+number
+boolean
+David is 41 years old
+string
+number
+object
+Age String 2: NaN
+Is invalid / not a number: true
+Num1: true Num2: false
+Bool 3: true Bool 4: false
+true
+boolean
+true
+string
+Bool 5: true
+string
+
+*/
