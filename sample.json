@@ -1,0 +1,15 @@
+{
+    "explained": {
+        "json": "is just a string of key value pairs",
+        "it requires": "double quotes for property names",
+        "string values": "to be in double quotes",
+        "it won't include": " undefined properties, functions or icated propertires"
+    },
+    "object1": {
+        "firstName": "David",
+        "lastName": "Tucker",
+        "birthDate": "1982-01-01T05:00:00.000Z",
+        "isActive": true,
+        "numYearsEmployment": 7
+    }
+}
