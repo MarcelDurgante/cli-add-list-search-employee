@@ -21,6 +21,7 @@ if (!lastName) {
 }
 employee.lastName = lastName;
 
+// Get year start date
 let startDateYear = prompt("Employee Start Year (1990-2023): ");
 // try to convert the string into a number
 startDateYear = Number(startDateYear);
@@ -35,6 +36,7 @@ if (startDateYear < 1990 || startDateYear > 2023) {
     process.exit(1);
 }
 
+// Get month start date
 let startDateMonth = prompt("Employee Start Date Month (1-12): ");
 startDateMonth = Number(startDateMonth);
 // Check if it is a valid integer again
@@ -45,5 +47,19 @@ if (!Number.isInteger(startDateMonth)) {
 // Check if the number is in month range
 if (startDateMonth < 1 || startDateMonth > 12) {
     console.error(`Enter a start date month within the correct range`);
+    process.exit(1);
+}
+
+// Get day start date
+let startDateDay = prompt("Employee Start Date Day (1-31): ");
+startDateDay = Number(startDateDay);
+// Check valid integer
+if (!Number.isInteger(startDateDay)) {
+    console.error(`Enter a valid start date day`);
+    process.exit(1);
+}
+// Check number is in day range
+if (startDateDay < 1 || startDateDay > 31) {
+    console.error(`Enter a start date day within the correct range`);
     process.exit(1);
 }
