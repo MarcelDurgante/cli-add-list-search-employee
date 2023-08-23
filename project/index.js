@@ -64,6 +64,16 @@ if (startDateDay < 1 || startDateDay > 31) {
     process.exit(1);
 }
 
-// If date elements are correct we create a new date object
+// If date elements are correct we create a new date object. Observation: we subtract 1 from 'startDateYear-1' to pass the correct value to JavaScript as month array in the date obj is zero based, which means jan is zero, feb is one, and so on.
 employee.startDate = new Date(startDateYear, startDateMonth - 1, startDateDay);
 console.log(employee.startDate); // 1989 - 12 - 31T23:00:00.000Z
+
+// Get if active 
+let isActive = prompt("Is employee active (yes or no): ");
+// Check if incorrect value 'yes' or 'no' only was entered
+if (isActive !== "yes" && isActive !== "no") {
+    console.error(`Enter yes or no for employee active status`);
+    process.exit(1);
+}
+// evaluates to true if yes if not false(not active so)
+employee.isActive = (isActive === "yes");
