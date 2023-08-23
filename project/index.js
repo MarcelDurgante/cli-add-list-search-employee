@@ -63,3 +63,7 @@ if (startDateDay < 1 || startDateDay > 31) {
     console.error(`Enter a start date day within the correct range`);
     process.exit(1);
 }
+
+// If date elements are correct we create a new date object
+employee.startDate = new Date(startDateYear, startDateMonth - 1, startDateDay);
+console.log(employee.startDate); // 1989 - 12 - 31T23:00:00.000Z
