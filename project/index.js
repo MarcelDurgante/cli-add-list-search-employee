@@ -13,3 +13,24 @@ if (!firstName) {
 }
 // If the above passes we add firstName to the employee object
 employee.firstName = firstName;
+
+let lastName = prompt("Last Name: ");
+if (!lastName) {
+    console.error(`Invalid last name`);
+    process.exit(1);
+}
+employee.lastName = lastName;
+
+let startDateYear = prompt("Employee Start Year (1990-2023): ");
+// try to convert the string into a number
+startDateYear = Number(startDateYear);
+// CAfter converting, check if it is a valid integer (if it was possible to convert into a number line 26 it should be a valid integer)
+if (!Number.isInteger(startDateYear)) {
+    console.error(`Enter a valid start date year`);
+    process.exit(1);
+}
+// Check if the number is in the range
+if (startDateYear < 1990 || startDateYear > 2023) {
+    console.error(`Enter a start date year within the correct range`);
+    process.exit(1);
+}
