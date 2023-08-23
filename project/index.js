@@ -68,12 +68,33 @@ if (startDateDay < 1 || startDateDay > 31) {
 employee.startDate = new Date(startDateYear, startDateMonth - 1, startDateDay);
 console.log(employee.startDate); // 1989 - 12 - 31T23:00:00.000Z
 
-// Get if active 
+// Get if active
 let isActive = prompt("Is employee active (yes or no): ");
-// Check if incorrect value 'yes' or 'no' only was entered
+// Check if incorrect value 'yes' or 'no' only was entered. If not a 'yes' or 'no' the expression below will evaluates to true an will log the error
 if (isActive !== "yes" && isActive !== "no") {
     console.error(`Enter yes or no for employee active status`);
     process.exit(1);
 }
 // evaluates to true if yes if not false(not active so)
 employee.isActive = (isActive === "yes");
+
+// Output Employee JSON
+const json = JSON.stringify(employee, null, 2);
+console.log(`Employee: ${json}`);
+
+/*  whole questions and Employee JSON Output
+
+First Name: Marcel
+Last Name: Durgante
+Employee Start Year(1990 - 2023): 1990
+Employee Start Date Month(1 - 12): 1
+Employee Start Date Day(1 - 31): 1
+1989 - 12 - 31T23:00:00.000Z
+Is employee active(yes or no): yes
+Employee: {
+    "firstName": "Marcel",
+    "lastName": "Durgante",
+    "startDate": "1989-12-31T23:00:00.000Z",
+    "isActive": true
+}
+*/
