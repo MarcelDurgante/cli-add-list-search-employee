@@ -1,0 +1,5 @@
+{
+    "editor.detectIndentation": true,
+    "terminal.integrated.tabs.focusMode": "doubleClick",
+    "editor.tabFocusMode": true
+}
