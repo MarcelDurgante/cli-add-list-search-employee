@@ -45,7 +45,8 @@ console.log(command); */
 switch (command) {
 
   case 'list':
-    console.log(`Employee List ----------------------------`);
+    listEmployees();
+    /* console.log(`Employee List ----------------------------`);
     console.log('');
 
     for (let emp of employees) {
@@ -56,11 +57,12 @@ switch (command) {
       prompt('Press enter to continue...');
       console.log('');
     }
-    console.log(`Employee list completed`);
-    break;
+    console.log(`Employee list completed`); */
+       break;
 
   case 'add':
-    console.log(`Add Employee -----------------------------`);
+    addEmployee();
+   /*  console.log(`Add Employee -----------------------------`);
     console.log('');
     let employee = {};
 
@@ -130,7 +132,7 @@ switch (command) {
 
     // Output Employee JSON
     const json = JSON.stringify(employee, null, 2);
-    console.log(`Employee: ${json}`);
+    console.log(`Employee: ${json}`); */
     break;
 
   default:
