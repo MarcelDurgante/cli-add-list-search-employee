@@ -41,6 +41,7 @@ console.log(command);
 
 
 /**
+ * Topic: FUNCTION DECLARATIONS
  * > getInput()
  * 
  * @description : function that's going to be under our application commands.Get the value from the user through the prompt and then return that value.  
