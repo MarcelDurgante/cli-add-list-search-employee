@@ -59,6 +59,15 @@ function getInput(promptText, validator, transformer) {
   return value;
 }
 
+//* Validator functions -------------------------------------
+
+const isStringInputValid = (input) => {
+  return (input) ? true : false;
+}
+
+
+
+
 //> Isolating actions like 'list' and 'add' into their own functions
 //*Application commands ----------------------------------
 
