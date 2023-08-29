@@ -40,29 +40,23 @@ console.log(command); */
 //> Isolating actions like 'list' and 'add' into their own functions
 //* Application commands ----------------------------------
 
-//* Applicatin execution the logic we will run every time our application executes - parse out the command form the command line arguments and where our switch statement resides )
+// listEmployees function => No params for these particular types of commands beacause here we are going to execute logic that the user will interact with
+function listEmplyess() {
+  console.log(`Employee List ----------------------------`);
+  console.log('');
 
-switch (command) {
-
-  case 'list':
-    listEmployees();
-    /* console.log(`Employee List ----------------------------`);
-    console.log('');
-
-    for (let emp of employees) {
-      for (let property in emp) {
-        console.log(`${property}: ${emp[property]}`);
-      }
-      console.log('');
-      prompt('Press enter to continue...');
-      console.log('');
+  for (let emp of employees) {
+    for (let property in emp) {
+      console.log(`${property}: ${emp[property]}`);
     }
-    console.log(`Employee list completed`); */
-       break;
-
-  case 'add':
-    addEmployee();
-   /*  console.log(`Add Employee -----------------------------`);
+    console.log('');
+    prompt('Press enter to continue...');
+    console.log('');
+  }
+  
+  // addEmplyoee function
+  function addEmployee() {
+    console.log(`Add Employee -----------------------------`);
     console.log('');
     let employee = {};
 
@@ -132,7 +126,22 @@ switch (command) {
 
     // Output Employee JSON
     const json = JSON.stringify(employee, null, 2);
-    console.log(`Employee: ${json}`); */
+    console.log(`Employee: ${json}`);
+    }
+
+//* Applicatin execution (the logic we will run every time our application executes - parse out the command form the command line arguments and where our switch statement resides ) -----------------------------
+
+// Get the command the user wants to execute using what was explained above
+const command = process.argv[2].toLowerCase();
+
+switch (command) {
+
+  case 'list':
+    listEmployees();
+       break;
+
+  case 'add':
+    addEmployee();
     break;
 
   default:
