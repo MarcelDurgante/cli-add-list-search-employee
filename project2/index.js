@@ -33,12 +33,33 @@ and now we have 'list' at index 2 of the array, or is 3rd item in the array retu
 ]
  */
 
+/*
 // Get the command the user wants to execute using what was explained above
-/* let command = process.argv[2];
-console.log(command); */
+ let command = process.argv[2];
+console.log(command); 
+*/
+
+
+/**
+ * > getInput()
+ * 
+ * @description : function that's going to be under our application commands.Get the value from the user through the prompt and then return that value.  
+ * How we get information from the end user using the prompt, and how we validate that, and then what we do with that result because in some cases we'll 
+ * need to do some custom logic for processing that or transforming that.
+ * 
+ * 3 params: 
+ * promptText => which is what we show to the end user.
+ * validator function =>  that will go through and validate to ensure that that input value is correct
+ * transformer function => which will potentially transform that value into something else.
+ *  
+ */
+function getInput(promptText, validator, transformer) {
+  let value = prompt(promptText);
+  return value;
+}
 
 //> Isolating actions like 'list' and 'add' into their own functions
-//* Application commands ----------------------------------
+//*Application commands ----------------------------------
 
 // listEmployees function => No params for these particular types of commands beacause here we are going to execute logic that the user will interact with
 function listEmplyess() {
