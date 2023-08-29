@@ -34,8 +34,13 @@ and now we have 'list' at index 2 of the array, or is 3rd item in the array retu
  */
 
 // Get the command the user wants to execute using what was explained above
-let command = process.argv[2];
-console.log(command);
+/* let command = process.argv[2];
+console.log(command); */
+
+//> Isolating actions like 'list' and 'add' into their own functions
+//* Application commands ----------------------------------
+
+//* Applicatin execution the logic we will run every time our application executes - parse out the command form the command line arguments and where our switch statement resides )
 
 switch (command) {
 
