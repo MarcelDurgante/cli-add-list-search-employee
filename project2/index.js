@@ -69,6 +69,13 @@ const isBooleanInputValid = function (input) {
   return (input === "yes" || input === "no");
 }
 
+const isStartYearValid = function (input) {
+  let numValue = Number(input);
+  if (!Number.isInteger(numValue) || numValue < 1990 || numValue > 2023) {
+    return false;
+  }
+  return true;
+};
 
 
 
@@ -88,7 +95,7 @@ function listEmplyess() {
     prompt('Press enter to continue...');
     console.log('');
   }
-  
+
   // addEmplyoee function
   function addEmployee() {
     console.log(`Add Employee -----------------------------`);
@@ -162,27 +169,27 @@ function listEmplyess() {
     // Output Employee JSON
     const json = JSON.stringify(employee, null, 2);
     console.log(`Employee: ${json}`);
-    }
+  }
 
-//* Applicatin execution (the logic we will run every time our application executes - parse out the command form the command line arguments and where our switch statement resides ) -----------------------------
+  //* Applicatin execution (the logic we will run every time our application executes - parse out the command form the command line arguments and where our switch statement resides ) -----------------------------
 
-// Get the command the user wants to execute using what was explained above
-const command = process.argv[2].toLowerCase();
+  // Get the command the user wants to execute using what was explained above
+  const command = process.argv[2].toLowerCase();
 
-switch (command) {
+  switch (command) {
 
-  case 'list':
-    listEmployees();
-       break;
+    case 'list':
+      listEmployees();
+      break;
 
-  case 'add':
-    addEmployee();
-    break;
+    case 'add':
+      addEmployee();
+      break;
 
-  default:
-    console.log('Unsupported command. Exiting...');
-    process.exit(1);
-}
+    default:
+      console.log('Unsupported command. Exiting...');
+      process.exit(1);
+  }
 
 /* output after executing in terminal the cmd: node index.js list
 
