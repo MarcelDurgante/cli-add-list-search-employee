@@ -56,6 +56,11 @@ console.log(command);
  */
 function getInput(promptText, validator, transformer) {
   let value = prompt(promptText);
+  // if we pass a validator function analise the value from the prompt
+  if (validator && !validator(value)) {
+    console.error(`--Invalid input`);
+    process.exit(1);
+  }
   return value;
 }
 
@@ -92,7 +97,6 @@ const isStartDayValid = function (input) {
   }
   return true;
 }
-
 
 //> Isolating actions like 'list' and 'add' into their own functions
 //*Application commands ----------------------------------
