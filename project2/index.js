@@ -32,7 +32,11 @@ const isBooleanInputValid = input => {
   return (input === "yes" || input === "no");
 };
 
-const isStartYearValid = input => {
+// Higher-Order Function: A function that receives another function as an argument or that returns a new function or both is called Higher-order function. Higher-order functions are only possible because of the First-class function.
+
+// Bringing isStartDayValid, isStartMonthValid and isStartYearValid together using a Higher-Order-Function
+
+/* const isStartYearValid = input => {
   let numValue = Number(input);
   if (!Number.isInteger(numValue) || numValue < 1990 || numValue > 2023) {
     return false;
@@ -54,7 +58,7 @@ const isStartDayValid = input => {
     return false;
   };
   return true;
-};
+}; */
 
 const isIdValid = input => {
   let numValue = Number(input);
