@@ -5,23 +5,20 @@ let prompt = createPrompt();
 
 // Arrow function to log out employee
 const logEmployee = employee => {
-  console.log("1) Employee: ", employee);
-  console.log("4) Object.entries(employee: ", Object.entries(employee));
   Object.entries(employee).forEach(entry => {
-    console.log("5) entry: ", entry);
     console.log(`${entry[0]}: ${entry[1]}`);
   });
 };
 
 function getInput(promptText, validator, transformer) {
-  let value = prompt(promptText);
-  if (validator && !validator(value)) {
-    console.error(`--Invalid input`);
-    process.exit(1);
-  };
-  if (transformer) {
-    return transformer(value);
-  };
+let value = prompt(promptText);
+if (validator && !validator(value)) {
+  console.error(`--Invalid input`);
+  process.exit(1);
+};
+if (transformer) {
+  return transformer(value);
+};
   return value;
 };
 
@@ -59,6 +56,14 @@ const isStartDayValid = input => {
   return true;
 };
 
+const isIdValid = input => {
+  let numValue = Number(input);
+  if (!Number.isInteger(numValue) || numValue < 0 || numValue == -1) {
+    return false;
+  };
+  return true;
+};
+
 // Application commands functions----------------------------------
 
 function listEmployees() {
@@ -81,18 +86,16 @@ function addEmployee() {
   let startDateMonth = getInput("Employee Start Date Month (1-12): ", isStartMonthValid);
   let startDateDay = getInput("Employee Start Date Day (1-31): ", isStartDayValid);
   employee.startDate = new Date(startDateYear, startDateMonth - 1, startDateDay);
-  employee.isActive = getInput("Is employee active (yes or no): ", isBooleanInputValid, i => i === "yes");
+  employee.isActive = getInput("Is employee active (yes or no): ", isBooleanInputValid, i => i === "yes"); 
   // JSON OBJECT
   const json = JSON.stringify(employee, null, 2);
-  console.log(`Employee: ${json}`);
+  console.log(`Employee: ${json}`); 
 };
 
 // Search for employees by id
 function searchById() {
   const id = getInput("Employee ID: ", null, Number);
-  console.log("2) id: ", id);
   const result = employees.find(e => e.id === id);
-  console.log("3) result: ", result);
   if (result) {
     logEmployee(result);
   } else {
