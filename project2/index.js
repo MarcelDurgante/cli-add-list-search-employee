@@ -9,7 +9,18 @@ function getInput(promptText, validator, transformer) {
     console.error(`--Invalid input`);
     process.exit(1);
   }
+  if (transformer) {
+    console.log('1 transformer: ', transformer);
+    console.log('2 value: ', value);
+    return transformer(value);
+  }
   return value;
+}
+// Transformer function ------------------------------------
+
+const transformBoleanValue = input => {
+  console.log("3 inside transformBoleanValue: ", input);
+  return input === "yes";
 }
 
 // Validator functions -------------------------------------
@@ -19,6 +30,7 @@ const isStringInputValid = input => {
 }
 
 const isBooleanInputValid = input => {
+  console.log("4 inside isBooleanInputValid: ", input);
   return (input === "yes" || input === "no");
 }
 
@@ -72,7 +84,7 @@ function addEmployee() {
   let startDateMonth = getInput("Employee Start Date Month (1-12): ", isStartMonthValid);
   let startDateDay = getInput("Employee Start Date Day (1-31): ", isStartDayValid);
   employee.startDate = new Date(startDateYear, startDateMonth - 1, startDateDay);
-  employee.isActive = getInput("Is employee active (yes or no): ", isBooleanInputValid, i => (i === "yes")); // we are  still getting a boolean here from here 
+  employee.isActive = getInput("Is employee active (yes or no): ", isBooleanInputValid, transformBoleanValue); // we are  still getting a boolean here from here 
   const json = JSON.stringify(employee, null, 2);
   console.log(`Employee: ${json}`); // we are  still outputing a boolean here
 }
