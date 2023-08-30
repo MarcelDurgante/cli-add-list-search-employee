@@ -5,9 +5,12 @@ let prompt = createPrompt();
 
 function getInput(promptText, validator, transformer) {
   let value = prompt(promptText);
-  console.log(promptText, validator);
-  console.log(value);
+  console.log('1 promptText: ', promptText);
+  console.log('2 validator: ', validator);
+  console.log('3 value: ', value);
   if (validator && !validator(value)) {
+    console.log('4 validator: ', validator);
+    console.log('5 !validator(value): ', !validator(value));
     console.error(`--Invalid input`);
     process.exit(1);
   }
@@ -42,7 +45,7 @@ const isStartMonthValid = function (input) {
 
 const isStartDayValid = function (input) {
   let numValue = Number(input);
-  if (!Number.isInteger(input) || numValue < 1 || numValue > 31) {
+  if (!Number.isInteger(numValue) || numValue < 1 || numValue > 31) {
     return false;
   }
   return true;
@@ -75,7 +78,6 @@ function addEmployee() {
   let startDateDay = getInput("Employee Start Date Day (1-31): ", isStartDayValid);
   employee.startDate = new Date(startDateYear, startDateMonth - 1, startDateDay);
   employee.isActive = getInput("Is employee active (yes or no): ", isBooleanInputValid, i => (i === "yes"));
-
   const json = JSON.stringify(employee, null, 2);
   console.log(`Employee: ${json}`);
 }
