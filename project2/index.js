@@ -7,21 +7,20 @@ let prompt = createPrompt();
 const logEmployee = employee => {
   let objEntries = Object.entries(employee);
   console.log(objEntries);
-/*
-
- [
-    [ 'id', 0 ],
-    [ 'email', 'lamb_mcclain@globomantics.com' ],
-    [ 'firstName', 'Lamb' ],
-    [ 'lastName', 'Mcclain' ],
-    [ 'dateBirth', '1988-08-01' ],
-    [ 'startDate', '2001-05-22' ],
-    [ 'isActive', false ]
-]
-
-*/
   objEntries.forEach(entry => {
-    console.log(`${entry[0]}: ${entry[1]}`);
+    console.log(entry);
+    /*
+
+[ 'id', 0 ]
+[ 'email', 'lamb_mcclain@globomantics.com' ]
+[ 'firstName', 'Lamb' ]
+[ 'lastName', 'Mcclain' ]
+[ 'dateBirth', '1988-08-01' ]
+[ 'startDate', '2001-05-22' ]
+[ 'isActive', false ]
+
+    */
+    // console.log(`${entry[0]}: ${entry[1]}`);
     }) 
 }
 
