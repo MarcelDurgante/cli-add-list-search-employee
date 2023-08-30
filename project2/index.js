@@ -10,8 +10,6 @@ function getInput(promptText, validator, transformer) {
     process.exit(1);
   }
   if (transformer) {
-    console.log('1 transformer: ', transformer);
-    console.log('2 value: ', value);
     return transformer(value);
   }
   return value;
@@ -19,7 +17,6 @@ function getInput(promptText, validator, transformer) {
 // Transformer function ------------------------------------
 
 const transformBoleanValue = input => {
-  console.log("3 inside transformBoleanValue: ", input);
   return input === "yes";
 }
 
@@ -30,7 +27,6 @@ const isStringInputValid = input => {
 }
 
 const isBooleanInputValid = input => {
-  console.log("4 inside isBooleanInputValid: ", input);
   return (input === "yes" || input === "no");
 }
 
