@@ -5,40 +5,23 @@ let prompt = createPrompt();
 
 // Arrow function to log out employee
 const logEmployee = employee => {
+  console.log("1) Employee: ", employee);
+  console.log("4) Object.entries(employee: ", Object.entries(employee));
   Object.entries(employee).forEach(entry => {
+    console.log("5) entry: ", entry);
     console.log(`${entry[0]}: ${entry[1]}`);
   });
 };
 
-const searchById = (emp, empId) => {
-  let empArr = Object.entries(emp);
-  // console.log(empArr);
-  // console.log('4 emp: ', emp);
-  empArr.forEach(entry => {
-    console.log('empId: ', empId);
-    console.log('entry[1]: ', entry[1]);
-    if (entry[1] === empId) {
-    console.log('equal');
-    } else {
-      console.log('not equal');
-    }
-    // console.log(`${entry=[0]}, val: ${entry[1]}`);
-  //   console.log('5 entry[0][0]', entry[0][0]);
-  //   console.log('6 entry[1]', entry[1]);
-  // // console.log(entry);
-  });
-};
-
-
 function getInput(promptText, validator, transformer) {
-let value = prompt(promptText);
-if (validator && !validator(value)) {
-  console.error(`--Invalid input`);
-  process.exit(1);
-};
-if (transformer) {
-  return transformer(value);
-};
+  let value = prompt(promptText);
+  if (validator && !validator(value)) {
+    console.error(`--Invalid input`);
+    process.exit(1);
+  };
+  if (transformer) {
+    return transformer(value);
+  };
   return value;
 };
 
@@ -76,14 +59,6 @@ const isStartDayValid = input => {
   return true;
 };
 
-const isIdValid = input => {
-  let numValue = Number(input);
-  if (!Number.isInteger(numValue) || numValue < 0 || numValue == -1) {
-    return false;
-  };
-  return true;
-};
-
 // Application commands functions----------------------------------
 
 function listEmployees() {
@@ -106,20 +81,24 @@ function addEmployee() {
   let startDateMonth = getInput("Employee Start Date Month (1-12): ", isStartMonthValid);
   let startDateDay = getInput("Employee Start Date Day (1-31): ", isStartDayValid);
   employee.startDate = new Date(startDateYear, startDateMonth - 1, startDateDay);
-  employee.isActive = getInput("Is employee active (yes or no): ", isBooleanInputValid, i => i === "yes"); // we are  still getting a boolean here from here 
+  employee.isActive = getInput("Is employee active (yes or no): ", isBooleanInputValid, i => i === "yes");
+  // JSON OBJECT
   const json = JSON.stringify(employee, null, 2);
-  console.log(`Employee: ${json}`); // we are  still outputing a boolean here
+  console.log(`Employee: ${json}`);
 };
 
-function searchEmpoyeeById() {
-  console.log(`Search Employee -----------------------------`);
-  console.log('');
-  let empId = getInput("Enter employee's 'id' you want to search: ", isIdValid)
-  employees.forEach(emp => {
-    searchById(emp, empId)
-    prompt(`Press enter to continue...`);
-  });
-};
+// Search for employees by id
+function searchById() {
+  const id = getInput("Employee ID: ", null, Number);
+  console.log("2) id: ", id);
+  const result = employees.find(e => e.id === id);
+  console.log("3) result: ", result);
+  if (result) {
+    logEmployee(result);
+  } else {
+    console.log("No results...");
+  }
+}
 
 const command = process.argv[2].toLowerCase();
 
@@ -133,7 +112,7 @@ switch (command) {
     break;
 
   case 'search-by-id':
-    searchEmpoyeeById();
+    searchById();
     break;
 
   default:
