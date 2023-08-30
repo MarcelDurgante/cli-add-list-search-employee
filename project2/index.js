@@ -67,9 +67,9 @@ function listEmplyess() {
     let employee = {}; 
     employee.firstName = getInput("First Name: ", isStringInputValid); 
     employee.lastName = getInput("Last Name: ", isStringInputValid);
-    let startDateYear = getInput("Employee Start Year (1990-2023): ", isIntegerValid(1990, 2023));
-    let startDateMonth = getInput("Employee Start Date Month (1-12): ", isIntegerValid(1, 12));
-    let startDateDay = getInput("Employee Start Date Day (1-31): ", isIntegerValid(1, 31));
+    let startDateYear = getInput("Employee Start Year (1990-2023): ", isStartYearValid(1990, 2023));
+    let startDateMonth = getInput("Employee Start Date Month (1-12): ", isStartMonthValid(1, 12));
+    let startDateDay = getInput("Employee Start Date Day (1-31): ", isStartDayValid(1, 31));
     employee.startDate = new Date(startDateYear, startDateMonth - 1, startDateDay);
     employee.isActive = getInput("Is employee active (yes or no): ", isBooleanInputValid, i => (i === "yes"));
 
