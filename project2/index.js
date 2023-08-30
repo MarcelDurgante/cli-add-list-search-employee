@@ -115,9 +115,40 @@ function searchByName() {
     if (lastNameSearch && !employee.lastName.toLowerCase().includes(lastNameSearch)) {
       return false;
     }
+    // if passes both cases above return results array that matches the criterias
     return true;
+  });
+  // loop over the results values and display them
+  results.forEach((emp, idx) => {
+    console.log("");
+    console.log(`Search Result: ${idx + 1} -----------------------------------`);
+    logEmployee(emp);
   })
 }
+/* TESTING SEARCH BY NAME 
+
+First Name: d
+Last Name:
+
+Search Result: 1 -----------------------------------
+  id: 1
+email: bridges_deleon @globomantics.com
+firstName: Bridges
+lastName: Deleon
+dateBirth: 1993-05 - 16
+startDate: 2021 - 12-06
+isActive: true
+
+Search Result: 2 -----------------------------------
+  id: 6
+email: dionne_larsen @globomantics.com
+firstName: Dionne
+lastName: Larsen
+dateBirth: 1988-07 - 14
+startDate: 2005-01 - 13
+isActive: false
+
+ */
 
 const command = process.argv[2].toLowerCase();
 
