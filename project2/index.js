@@ -32,47 +32,16 @@ const isBooleanInputValid = input => {
   return (input === "yes" || input === "no");
 };
 
-// Higher-Order Function: A function that receives another function as an argument or that returns a new function or both is called Higher-order function. Higher-order functions are only possible because of the First-class function.
-
-// Bringing isStartDayValid, isStartMonthValid and isStartYearValid together using a Higher-Order-Function
-
+// Higher-Order Function
 const isIntegerValid = (min, max) => {
-  // isIntegerValid returns an another function, an anonymous function that takes one param input
   return (input) => {
     let numValue = Number(input);
-    // here we check if is valid integer passing the number input and if input is in min / max range
     if (!Number.isInteger(numValue) || numValue < min || numValue > max) {
       return false;
     }
     return true;
   }
 }
-
-
-
-/* const isStartYearValid = input => {
-  let numValue = Number(input);
-  if (!Number.isInteger(numValue) || numValue < 1990 || numValue > 2023) {
-    return false;
-  };
-  return true;
-};
-
-const isStartMonthValid = input => {
-  let numValue = Number(input);
-  if (!Number.isInteger(numValue) || numValue < 1 || numValue > 12) {
-    return false;
-  };
-  return true;
-};
-
-const isStartDayValid = input => {
-  let numValue = Number(input);
-  if (!Number.isInteger(numValue) || numValue < 1 || numValue > 31) {
-    return false;
-  };
-  return true;
-}; */
 
 const isIdValid = input => {
   let numValue = Number(input);
@@ -100,7 +69,6 @@ function addEmployee() {
   let employee = {};
   employee.firstName = getInput("First Name: ", isStringInputValid);
   employee.lastName = getInput("Last Name: ", isStringInputValid);
-  // replace validators by our custom Higher-Order-Function 'isIntegerValid' passing our min and max values. We call 'isIntegerValid()' function here but the return value is another function 
   let startDateYear = getInput("Employee Start Year (1990-2023): ", isIntegerValid(1990, 2023));
   let startDateMonth = getInput("Employee Start Date Month (1-12): ", isIntegerValid(1, 12));
   let startDateDay = getInput("Employee Start Date Day (1-31): ", isIntegerValid(1, 31));
