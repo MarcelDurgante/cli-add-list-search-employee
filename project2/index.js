@@ -86,7 +86,7 @@ const isStartMonthValid = function (input) {
   let numValue = Number(input);
   if (!Number.isInteger(numValue) || numValue < 1 || numValue > 12) {
     return false;
-  } 
+  }
   return true;
 }
 
@@ -119,7 +119,15 @@ function listEmplyess() {
   function addEmployee() {
     console.log(`Add Employee -----------------------------`);
     console.log('');
-    let employee = {};
+    let employee = {}; // employee objecct
+    employee.firstName = getInput("First Name: ", isStringInputValid); // assigning getInput() to 'employee.firstName' property. Passing to function getInput() 's promptText first param the argument "First Name: ", and for the second param 'validator', the function "isStringInputValid" as its argument. Ps. not calling the function here.
+    employee.lastName = getInput("Last Name: ", isStringInputValid);
+    let startDateYear = getInput("Employee Start Year (1990-2023): ", isIntegerValid(1990, 2023));
+    let startDateMonth = getInput("Employee Start Date Month (1-12): ", isIntegerValid(1, 12));
+    let startDateDay = getInput("Employee Start Date Day (1-31): ", isIntegerValid(1, 31));
+    employee.startDate = new Date(startDateYear, startDateMonth - 1, startDateDay);
+    employee.isActive = getInput("Is employee active (yes or no): ", isBooleanInputValid, i => (i === "yes"));
+
 
     // let firstName = prompt("First Name: ");
     // if (!firstName) {
