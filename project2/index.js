@@ -11,14 +11,14 @@ const logEmployee = employee => {
 };
 
 function getInput(promptText, validator, transformer) {
-let value = prompt(promptText);
-if (validator && !validator(value)) {
-  console.error(`--Invalid input`);
-  process.exit(1);
-};
-if (transformer) {
-  return transformer(value);
-};
+  let value = prompt(promptText);
+  if (validator && !validator(value)) {
+    console.error(`--Invalid input`);
+    process.exit(1);
+  };
+  if (transformer) {
+    return transformer(value);
+  };
   return value;
 };
 
@@ -86,10 +86,10 @@ function addEmployee() {
   let startDateMonth = getInput("Employee Start Date Month (1-12): ", isStartMonthValid);
   let startDateDay = getInput("Employee Start Date Day (1-31): ", isStartDayValid);
   employee.startDate = new Date(startDateYear, startDateMonth - 1, startDateDay);
-  employee.isActive = getInput("Is employee active (yes or no): ", isBooleanInputValid, i => i === "yes"); 
+  employee.isActive = getInput("Is employee active (yes or no): ", isBooleanInputValid, i => i === "yes");
   // JSON OBJECT
   const json = JSON.stringify(employee, null, 2);
-  console.log(`Employee: ${json}`); 
+  console.log(`Employee: ${json}`);
 };
 
 // Search for employees by id
@@ -105,8 +105,17 @@ function searchById() {
 
 // Search by name
 function searchByName() {
-  let firstName = getInput("First Name: ").toLowerCase();
-  let lastName = getInput("Last Name: ").toLowerCase();
+  let firstNameSearch = getInput("First Name: ").toLowerCase();
+  let lastNameSearch = getInput("Last Name: ").toLowerCase();
+  const results = employees.filter(employee => {
+    if (firstNameSearch && !employee.firstName.toLowerCase().includes(firstNameSearch)) {
+      return false;
+    }
+    if (lastNameSearch && !employee.lastName.toLowerCase().includes(lastNameSearch)) {
+      return false;
+    }
+    return true;
+  })
 }
 
 const command = process.argv[2].toLowerCase();
@@ -123,11 +132,11 @@ switch (command) {
   case 'search-by-id':
     searchById();
     break;
-    
-    case 'search-by-name':
-      searchByName();
+
+  case 'search-by-name':
+    searchByName();
     break;
-  
+
   default:
     console.log('Unsupported command. Exiting...');
     process.exit(1);
