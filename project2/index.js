@@ -103,6 +103,12 @@ function searchById() {
   }
 }
 
+// Search by name
+function searchByName() {
+  let firstName = getInput("First Name: ").toLowerCase();
+  let lastName = getInput("Last Name: ").toLowerCase();
+}
+
 const command = process.argv[2].toLowerCase();
 
 switch (command) {
