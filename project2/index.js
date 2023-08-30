@@ -5,6 +5,8 @@ let prompt = createPrompt();
 
 function getInput(promptText, validator, transformer) {
   let value = prompt(promptText);
+  console.log(promptText, validator);
+  console.log(value);
   if (validator && !validator(value)) {
     console.error(`--Invalid input`);
     process.exit(1);
@@ -68,9 +70,9 @@ function addEmployee() {
   let employee = {};
   employee.firstName = getInput("First Name: ", isStringInputValid);
   employee.lastName = getInput("Last Name: ", isStringInputValid);
-  let startDateYear = getInput("Employee Start Year (1990-2023): ", isStartYearValid(1990, 2023));
-  let startDateMonth = getInput("Employee Start Date Month (1-12): ", isStartMonthValid(1, 12));
-  let startDateDay = getInput("Employee Start Date Day (1-31): ", isStartDayValid(1, 31));
+  let startDateYear = getInput("Employee Start Year (1990-2023): ", isStartYearValid);
+  let startDateMonth = getInput("Employee Start Date Month (1-12): ", isStartMonthValid);
+  let startDateDay = getInput("Employee Start Date Day (1-31): ", isStartDayValid);
   employee.startDate = new Date(startDateYear, startDateMonth - 1, startDateDay);
   employee.isActive = getInput("Is employee active (yes or no): ", isBooleanInputValid, i => (i === "yes"));
 
