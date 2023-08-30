@@ -3,11 +3,15 @@ import createPrompt from 'prompt-sync';
 
 let prompt = createPrompt();
 
-// Function to log out employee
+// Arrow function to log out employee
 const logEmployee = employee => {
-  Object.entries(employee).forEach(entry => {
+  // Get the values of employee object in an array by looping over each of the props with in an object. Same as using "obj === for...in loop" but here using a functional aproach. Return = [] ( array of entries ). Than, executes the forEach() method for each of the entries.
+/*   Object.entries(employee).forEach(entry => {
   console.log(`${entry[0]}: ${entry[1]}`);
-  })
+  }) */
+  // Get values using for...in loop
+  for (let prop in employee) {
+  console.log(`${prop}: ${employee[prop]}`);}
 }
 
 function getInput(promptText, validator, transformer) {
@@ -62,14 +66,15 @@ function listEmployees() {
   console.log(`Employee List ----------------------------`);
   console.log('');
 
-  for (let emp of employees) {
-    for (let property in emp) {
-      console.log(`${property}: ${emp[property]}`);
-    }
-    console.log('');
-    prompt('Press enter to continue...');
-    console.log('');
-  }
+  // for (let emp of employees) {
+  //   for (let property in emp) {
+  //     console.log(`${property}: ${emp[property]}`);
+  //   }
+  //   console.log('');
+  //   prompt('Press enter to continue...');
+  //   console.log('');
+  // }
+  console.log(`Employee list completed`);
 }
 
 function addEmployee() {
