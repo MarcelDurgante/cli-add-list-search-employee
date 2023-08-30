@@ -48,7 +48,7 @@ const isStartDayValid = function (input) {
 
 // Application commands functions----------------------------------
 
-function listEmplyess() {
+function listEmployees() {
   console.log(`Employee List ----------------------------`);
   console.log('');
 
@@ -60,36 +60,37 @@ function listEmplyess() {
     prompt('Press enter to continue...');
     console.log('');
   }
+}
 
-  function addEmployee() {
-    console.log(`Add Employee -----------------------------`);
-    console.log('');
-    let employee = {}; 
-    employee.firstName = getInput("First Name: ", isStringInputValid); 
-    employee.lastName = getInput("Last Name: ", isStringInputValid);
-    let startDateYear = getInput("Employee Start Year (1990-2023): ", isStartYearValid(1990, 2023));
-    let startDateMonth = getInput("Employee Start Date Month (1-12): ", isStartMonthValid(1, 12));
-    let startDateDay = getInput("Employee Start Date Day (1-31): ", isStartDayValid(1, 31));
-    employee.startDate = new Date(startDateYear, startDateMonth - 1, startDateDay);
-    employee.isActive = getInput("Is employee active (yes or no): ", isBooleanInputValid, i => (i === "yes"));
+function addEmployee() {
+  console.log(`Add Employee -----------------------------`);
+  console.log('');
+  let employee = {};
+  employee.firstName = getInput("First Name: ", isStringInputValid);
+  employee.lastName = getInput("Last Name: ", isStringInputValid);
+  let startDateYear = getInput("Employee Start Year (1990-2023): ", isStartYearValid(1990, 2023));
+  let startDateMonth = getInput("Employee Start Date Month (1-12): ", isStartMonthValid(1, 12));
+  let startDateDay = getInput("Employee Start Date Day (1-31): ", isStartDayValid(1, 31));
+  employee.startDate = new Date(startDateYear, startDateMonth - 1, startDateDay);
+  employee.isActive = getInput("Is employee active (yes or no): ", isBooleanInputValid, i => (i === "yes"));
 
-    const json = JSON.stringify(employee, null, 2);
-    console.log(`Employee: ${json}`);
-  }
+  const json = JSON.stringify(employee, null, 2);
+  console.log(`Employee: ${json}`);
+}
 
-  const command = process.argv[2].toLowerCase();
+const command = process.argv[2];
+console.log(command);
 
-  switch (command) {
-    case 'list':
-      listEmployees();
-      break;
+switch (command) {
+  case 'list':
+    listEmployees();
+    break;
 
-    case 'add':
-      addEmployee();
-      break;
+  case 'add':
+    addEmployee();
+    break;
 
-    default:
-      console.log('Unsupported command. Exiting...');
-      process.exit(1);
-  }
+  default:
+    console.log('Unsupported command. Exiting...');
+    process.exit(1);
 }
