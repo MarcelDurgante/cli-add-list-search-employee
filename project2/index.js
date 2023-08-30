@@ -119,7 +119,7 @@ switch (command) {
     break;
     
     case 'search-by-name':
-      
+      searchByName();
     break;
   
   default:
