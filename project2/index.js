@@ -5,26 +5,24 @@ let prompt = createPrompt();
 
 // Arrow function to log out employee
 const logEmployee = employee => {
-  // Get the values of employee object in an array by looping over each of the props with in an object. Same as using "obj === for...in loop" but here using a functional aproach. Return = [] ( array of entries ). Than, executes the forEach() method for each of the entries.
-  /*   Object.entries(employee).forEach(entry => {
-    console.log(`${entry[0]}: ${entry[1]}`);
-    }) */
-  // Get values using for...in loop
-  for (let prop in employee) {
-    console.log(`Prop: ${prop} / Employee[prop]: ${employee[prop]}`);
-   
-/* 
-Prop: id / Employee[prop]: 0
-Prop: email / Employee[prop]: lamb_mcclain@globomantics.com
-Prop: firstName / Employee[prop]: Lamb
-Prop: lastName / Employee[prop]: Mcclain
-Prop: dateBirth / Employee[prop]: 1988-08-01
-Prop: startDate / Employee[prop]: 2001-05-22
-Prop: isActive / Employee[prop]: false
-*/
+  let objEntries = Object.entries(employee);
+  console.log(objEntries);
+/*
 
-    // console.log(`${prop}: ${employee[prop]}`);
-  }
+ [
+    [ 'id', 0 ],
+    [ 'email', 'lamb_mcclain@globomantics.com' ],
+    [ 'firstName', 'Lamb' ],
+    [ 'lastName', 'Mcclain' ],
+    [ 'dateBirth', '1988-08-01' ],
+    [ 'startDate', '2001-05-22' ],
+    [ 'isActive', false ]
+]
+
+*/
+  objEntries.forEach(entry => {
+    console.log(`${entry[0]}: ${entry[1]}`);
+    }) 
 }
 
 function getInput(promptText, validator, transformer) {
