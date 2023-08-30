@@ -5,22 +5,8 @@ let prompt = createPrompt();
 
 // Arrow function to log out employee
 const logEmployee = employee => {
-  let objEntries = Object.entries(employee);
-  console.log(objEntries);
-  objEntries.forEach(entry => {
-    console.log(entry);
-    /*
-
-[ 'id', 0 ]
-[ 'email', 'lamb_mcclain@globomantics.com' ]
-[ 'firstName', 'Lamb' ]
-[ 'lastName', 'Mcclain' ]
-[ 'dateBirth', '1988-08-01' ]
-[ 'startDate', '2001-05-22' ]
-[ 'isActive', false ]
-
-    */
-    // console.log(`${entry[0]}: ${entry[1]}`);
+Object.entries(employee).forEach(entry => {
+    console.log(`${entry[0]}: ${entry[1]}`);
     }) 
 }
 
@@ -75,21 +61,10 @@ const isStartDayValid = input => {
 function listEmployees() {
   console.log(`Employee List ----------------------------`);
   console.log('');
-
-  // 
   employees.forEach(employee => {
     logEmployee(employee);
     prompt(`Press enter to continue...`);
   })
-
-  // for (let emp of employees) {
-  //   for (let property in emp) {
-  //     console.log(`${property}: ${emp[property]}`);
-  //   }
-  //   console.log('');
-  //   prompt('Press enter to continue...');
-  //   console.log('');
-  // }
   console.log(`Employee list completed`);
 }
 
