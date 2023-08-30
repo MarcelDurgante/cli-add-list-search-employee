@@ -77,9 +77,9 @@ function addEmployee() {
   let startDateMonth = getInput("Employee Start Date Month (1-12): ", isStartMonthValid);
   let startDateDay = getInput("Employee Start Date Day (1-31): ", isStartDayValid);
   employee.startDate = new Date(startDateYear, startDateMonth - 1, startDateDay);
-  employee.isActive = getInput("Is employee active (yes or no): ", isBooleanInputValid, i => (i === "yes"));
+  employee.isActive = getInput("Is employee active (yes or no): ", isBooleanInputValid, i => (i === "yes")); // we are  still getting a boolean here from here 
   const json = JSON.stringify(employee, null, 2);
-  console.log(`Employee: ${json}`);
+  console.log(`Employee: ${json}`); // we are  still outputing a boolean here
 }
 
 const command = process.argv[2];
