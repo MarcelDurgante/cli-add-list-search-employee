@@ -3,6 +3,13 @@ import createPrompt from 'prompt-sync';
 
 let prompt = createPrompt();
 
+// Function to log out employee
+const logEmployee = employee => {
+  Object.entries(employee).forEach(entry => {
+  console.log(`${entry[0]}: ${entry[1]}`);
+  })
+}
+
 function getInput(promptText, validator, transformer) {
   let value = prompt(promptText);
   if (validator && !validator(value)) {
