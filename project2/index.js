@@ -108,6 +108,7 @@ function searchByName() {
   let firstNameSearch = getInput("First Name: ").toLowerCase();
   let lastNameSearch = getInput("Last Name: ").toLowerCase();
   const results = employees.filter(employee => {
+    // check if firstNameSearch value is passed than check if it is not included in the first name/last name of the current item in the array. 
     if (firstNameSearch && !employee.firstName.toLowerCase().includes(firstNameSearch)) {
       return false;
     }
