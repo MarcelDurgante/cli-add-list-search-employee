@@ -4,7 +4,6 @@ import createPrompt from 'prompt-sync';
 let prompt = createPrompt();
 
 function getInput(promptText, validator, transformer) {
-  console.log('1 transformer: ', transformer);
   let value = prompt(promptText);
   if (validator && !validator(value)) {
     console.error(`--Invalid input`);
@@ -15,12 +14,6 @@ function getInput(promptText, validator, transformer) {
   }
   return value;
 }
-
-/* // Transformer function ------------------------------------
-
-const transformBoleanValue = input => {
-  return input === "yes";
-} */
 
 // Validator functions -------------------------------------
 
