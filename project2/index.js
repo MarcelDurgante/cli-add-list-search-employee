@@ -4,6 +4,7 @@ import createPrompt from 'prompt-sync';
 let prompt = createPrompt();
 
 function getInput(promptText, validator, transformer) {
+  console.log('1 transformer: ', transformer);
   let value = prompt(promptText);
   if (validator && !validator(value)) {
     console.error(`--Invalid input`);
@@ -14,11 +15,12 @@ function getInput(promptText, validator, transformer) {
   }
   return value;
 }
-// Transformer function ------------------------------------
+
+/* // Transformer function ------------------------------------
 
 const transformBoleanValue = input => {
   return input === "yes";
-}
+} */
 
 // Validator functions -------------------------------------
 
@@ -80,7 +82,7 @@ function addEmployee() {
   let startDateMonth = getInput("Employee Start Date Month (1-12): ", isStartMonthValid);
   let startDateDay = getInput("Employee Start Date Day (1-31): ", isStartDayValid);
   employee.startDate = new Date(startDateYear, startDateMonth - 1, startDateDay);
-  employee.isActive = getInput("Is employee active (yes or no): ", isBooleanInputValid, transformBoleanValue); // we are  still getting a boolean here from here 
+  employee.isActive = getInput("Is employee active (yes or no): ", isBooleanInputValid, i => i === "yes"); // we are  still getting a boolean here from here 
   const json = JSON.stringify(employee, null, 2);
   console.log(`Employee: ${json}`); // we are  still outputing a boolean here
 }
