@@ -5,12 +5,7 @@ let prompt = createPrompt();
 
 function getInput(promptText, validator, transformer) {
   let value = prompt(promptText);
-  console.log('1 promptText: ', promptText);
-  console.log('2 validator: ', validator);
-  console.log('3 value: ', value);
   if (validator && !validator(value)) {
-    console.log('4 validator: ', validator);
-    console.log('5 !validator(value): ', !validator(value));
     console.error(`--Invalid input`);
     process.exit(1);
   }
@@ -19,15 +14,15 @@ function getInput(promptText, validator, transformer) {
 
 // Validator functions -------------------------------------
 
-const isStringInputValid = (input) => {
+const isStringInputValid = input => {
   return (input) ? true : false;
 }
 
-const isBooleanInputValid = function (input) {
+const isBooleanInputValid = input => {
   return (input === "yes" || input === "no");
 }
 
-const isStartYearValid = function (input) {
+const isStartYearValid = input => {
   let numValue = Number(input);
   if (!Number.isInteger(numValue) || numValue < 1990 || numValue > 2023) {
     return false;
@@ -35,7 +30,7 @@ const isStartYearValid = function (input) {
   return true;
 };
 
-const isStartMonthValid = function (input) {
+const isStartMonthValid = input => {
   let numValue = Number(input);
   if (!Number.isInteger(numValue) || numValue < 1 || numValue > 12) {
     return false;
@@ -43,7 +38,7 @@ const isStartMonthValid = function (input) {
   return true;
 }
 
-const isStartDayValid = function (input) {
+const isStartDayValid = input => {
   let numValue = Number(input);
   if (!Number.isInteger(numValue) || numValue < 1 || numValue > 31) {
     return false;
@@ -82,8 +77,7 @@ function addEmployee() {
   console.log(`Employee: ${json}`); // we are  still outputing a boolean here
 }
 
-const command = process.argv[2];
-console.log(command);
+const command = process.argv[2].toLowerCase();
 
 switch (command) {
   case 'list':
