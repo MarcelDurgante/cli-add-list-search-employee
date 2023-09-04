@@ -1,5 +1,6 @@
 {
-    "editor.detectIndentation": true,
+    "editor.detectIndentation": false,
     "terminal.integrated.tabs.focusMode": "doubleClick",
-    "editor.tabFocusMode": true
+    "editor.tabFocusMode": true,
+    "editor.indentSize": 4
 }
