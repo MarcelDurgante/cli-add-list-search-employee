@@ -26,7 +26,12 @@ fs.readFile('./data.json', 'utf8', (err, data) => {
         // if err it shows the error and stops the execution of the application
         throw err;
     }
-    const dataOCbject = JSON.parse(data);
-    console.log(dataOCbject);
-    console.log('Complete');
+    try {
+        const dataObject = JSON.parse(data);
+        console.log(dataObject);
+        console.log('Complete');
+    } catch (err) {
+        console.error('Can not parse JSON');
+        throw err;
+    }
 });
