@@ -15,9 +15,43 @@ async function loadData() {
         // using the await keyword we'll say that data = await and then fs.readFile, and then we'll pass in the same arguments that we used previously.  We're still using the promise‑based API, so we're still working with promises. The await keyword specifies that the promise will need to complete, and then after that, it will execute the next steps that are listed in your code. This makes it work in many ways similar to how we work with synchronous code. Async has to return a promise and in this case, using await is basically doing that for us behind the scenes so we don't have to do it manually.
         const data = await fs.readFile('data.json', 'utf-8');
         
-        /**
-         * Like let's say I don't want to just do one asynchronous thing let's say that I want to do several. And I'm going to add in some logging statements here so we can actually see that this plays out in the order that we would intend.So here, we're just going to go through and read the same file several times, and this will just help to illustrate the way that async and await works behind the scenes. So here in this case, I'm going to go ahead and have several additional reads of the file.So after we read the file the first time, it will say File Read 1, and then it'll go through and do the same thing for 2 and 3. Now if this works the way that we want it to, we should see that we're going to see this come out in order, and all of these statements will be logged in the order that you see them here in the code.So now, I'll hit F5, and we can see that indeed we actually see File Read 1, 2, and 3 happening before we get to the point where we're logging out the data and then finally, before we're actually listing that the promise has been completed.
-         */
+/**
+Like let's say I don't want to just do one asynchronous thing let's say that I want to do several. And I'm going to add in some logging statements here so we can actually see that this plays out in the order that we would intend.So here, we're just going to go through and read the same file several times, and this will just help to illustrate the way that async and await works behind the scenes. So here in this case, I'm going to go ahead and have several additional reads of the file.So after we read the file the first time, it will say File Read 1, and then it'll go through and do the same thing for 2 and 3. Now if this works the way that we want it to, we should see that we're going to see this come out in order, and all of these statements will be logged in the order that you see them here in the code.So now, I'll hit F5, and we can see that indeed we actually see File Read 1, 2, and 3 happening before we get to the point where we're logging out the data and then finally, before we're actually listing that the promise has been completed.
+*/
+/*
+output:
+
+File Read 1
+File Read 2
+File Read 3
+[
+  {
+    id: 0,
+    email: 'lauren_shaffer@globomantics.com',
+    firstName: 'Lauren',
+    lastName: 'Shaffer',
+    salaryUSD: 246463,
+    localCurrency: 'PEN',
+    dateBirth: '1988-02-08',
+    startDate: '2006-02-14',
+    isActive: true
+  },
+  {
+  ...
+  },
+  {
+    id: 64,
+    firstName: 'David',
+    lastName: 'Tucker',
+    startDate: '1999-03-03T05:00:00.000Z',
+    isActive: true,
+    salaryUSD: '105000',
+    localCurrency: 'JPY'
+  }
+]
+Completed
+Promise completed
+*/
         console.log('File Read 1');
         await fs.readFile('./data.json', 'utf8');
         console.log('File Read 2');
