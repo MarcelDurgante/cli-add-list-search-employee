@@ -1,4 +1,4 @@
-import employees from './data.json' assert { type: 'json' }
+import fs from 'node:fs/promises';
 import createPrompt from 'prompt-sync';
 
 let prompt = createPrompt();
