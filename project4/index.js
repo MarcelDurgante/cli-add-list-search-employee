@@ -1,3 +1,11 @@
+/**
+ * Objectives:
+ * 
+ * a) Loading data using a file on the local file system
+ * b) Utilizing asynchronous logic with promises and async/await 
+ * c) Persist data beyond a single execution of the application
+ */
+
 import fs from 'node:fs/promises';
 import createPrompt from 'prompt-sync';
 
