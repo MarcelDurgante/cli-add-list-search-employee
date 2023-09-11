@@ -26,6 +26,7 @@ fs.readFile('./data.json', 'utf8', (err, data) => {
         // if err it shows the error and stops the execution of the application
         throw err;
     }
+    // check if no error when after the reading the file there is no error in the JSON file and we are able to parse as json properly
     try {
         const dataObject = JSON.parse(data);
         console.log(dataObject);
