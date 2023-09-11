@@ -13,7 +13,7 @@ async function loadData() {
     try {
 
         // using the await keyword we'll say that data = await and then fs.readFile, and then we'll pass in the same arguments that we used previously.  We're still using the promise‑based API, so we're still working with promises. The await keyword specifies that the promise will need to complete, and then after that, it will execute the next steps that are listed in your code. This makes it work in many ways similar to how we work with synchronous code. Async has to return a promise and in this case, using await is basically doing that for us behind the scenes so we don't have to do it manually.
-        const data = await fs.readFile('data.json', 'utf-8');
+        const data = await fs.readFile('dataX.json', 'utf-8');
 
         // parse this out to be an actual data object by parsing the JSON.
         const dataObj = JSON.parse(data);
@@ -61,4 +61,20 @@ loadData().then(() => console.log('Promise completed'));
 ]
 Completed
 Promise completed
+ */
+
+/**
+ * If error in the name of the file, output:
+ * 
+Could not load and parse file
+node:internal/process/promises:279
+            triggerUncaughtException(err, true /* fromPromise /);
+            ^
+
+[Error: ENOENT: no such file or directory, open 'C:\Users\marcel\projects\javascript-fundamentals\project3\dataX.json'] {
+    errno: -4058,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'C:\\Users\\marcel\\projects\\javascript-fundamentals\\project3\\dataX.json'
+}
  */
