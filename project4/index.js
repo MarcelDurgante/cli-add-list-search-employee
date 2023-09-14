@@ -213,18 +213,25 @@ loadData()
 
 // Problem: handle when we add in a new employee give them an ID that follows the same concept that has been put in place with the sample data (data.json / numeric / ordered IDs)
     
-// Solution: 
+// Solution:
 
 // 1) create a function to know what's the next ID is for a new employee. Create under getInput function definition, a new synchronously function called, getNextEmployeeID.
 
-//  figure out what the biggest ID in terms of the max value of the number for IDs across all employees is using the array object called map, calling it on our employees, and return a value from each item in the array, the id of each item.
+//  figure out what the biggest ID in terms of the max value of the number for IDs across all employees using the array object called map, calling it on our employees, and return a value from each item in the array, the id of each item.
 
 // it will create a new array:
 // so imagine this new array that has all of the different IDs from 0 to 1, 2, so on, and so forth. It has all the values for each of the employees in our array
 
-// The problem is, Math.max is not designed to take an array. Math.max is expecting that we're going to list a bunch of values as parameters.So in this case, if we passed in Math.max and we did 1, 2, 3, it would return 3, because in that case, that is the maximum value.
+// The problem is, //>Math.max is not designed to take an array.
 
-// Well, we can do this here utilizing something called //>spread syntax. 
-// The spread syntax allows an iterable object such as an array or string to be expanded in places where 0 or more arguments for function calls or elements for array literals are expected.
+        // Math.max is expecting that we're going to list a bunch of values as parameters.So in this case, if we passed in Math.max and we did 1, 2, 3, it would return 3, because in that case, that is the maximum value.
 
-// So, this is what we're going to utilize here to basically change it out from an array into something that our Math.max function can actually use.So here, we utilize spread syntax at the very beginning, adding in three dots, and it will convert that into a list of parameters for the Math.max function, which should give us our maximum ID, and then we'll simply return 1. Now the way that we'll integrate this into our application is simply after we create our new employee, we will go in and add in the ID. 
+// Well, we can do this here utilizing something called //>spread syntax.
+
+        // The spread syntax allows an iterable object such as an array or string to be expanded in places where 0 or more arguments for function calls or elements for array literals are expected.
+
+// So, this is what we're going to utilize here to basically change it out from an array into something that our Math.max function can actually use.
+
+        // We'll utilize spread syntax at the very beginning, adding in three dots, and it will convert that into a list of parameters for the Math.max function, which should give us our maximum ID, and then we'll simply return 1. 
+        
+// Now the way that we'll integrate this into our application is simply after we create our new employee, we will go in and add in the ID. 
