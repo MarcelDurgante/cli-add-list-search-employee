@@ -146,26 +146,34 @@ function searchByName() {
     })
 }
 
-const command = process.argv[2].toLowerCase();
+// Application execution ---------------------------
 
-switch (command) {
-    case 'list':
-        listEmployees();
-        break;
+// Wrap our logic around Application execution creating a new async arrow function 'main' to startup process where the data is loaded before anything by moving Application execution inside of this function. 
 
-    case 'add':
-        addEmployee();
-        break;
+const main = async () => {
 
-    case 'search-by-id':
-        searchById();
-        break;
+    // Get the command the user wants to execute
+    const command = process.argv[2].toLowerCase();
 
-    case 'search-by-name':
-        searchByName();
-        break;
+    switch (command) {
+        case 'list':
+            listEmployees();
+            break;
 
-    default:
-        console.log('Unsupported command. Exiting...');
-        process.exit(1);
-};
+        case 'add':
+            addEmployee();
+            break;
+
+        case 'search-by-id':
+            searchById();
+            break;
+
+        case 'search-by-name':
+            searchByName();
+            break;
+
+        default:
+            console.log('Unsupported command. Exiting...');
+            process.exit(1);
+    };
+}
