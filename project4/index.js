@@ -7,6 +7,34 @@
  */
 
 import fs from 'node:fs/promises';
+
+// Global variables --------------------------------------------------------
+// we previously got employee from loading in the JSON using the import statement (projects 1 and 2), but here we're going to create an empty array, and read in the data from the data.json file and populate this array on startup of the application.But to do that, we'll need to write some files to actually handle loading data, as well as writing data back to that JSON file.
+let employees = [];
+
+// Loading and writin data to the filesystem --------------------------
+
+const loadData = async () => {
+    try {
+        console.log('Loading employees...');
+        const fileData = await fs.readFile('data.json', 'utf-8');
+        employees = JSON.parse(fileData);
+    } catch (err) {
+        console.log("Can't load employees.");
+        throw err;
+    }
+}
+
+const writeData = async () => {
+    try {
+        console.log('Writing employees...');
+        fs.writeFile('data.json', JSON.stringify(employees, null, 2));
+    } catch (err) {
+        console.log("Can't write employees data.");
+        throw err;
+    }
+}
+
 import createPrompt from 'prompt-sync';
 
 let prompt = createPrompt();
