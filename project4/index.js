@@ -35,6 +35,13 @@ const writeData = async () => {
 	}
 };
 
+const getNextEmployeeID = () => {
+    const maxID = employees.map(emp => console.log(emp.id));
+    console.log(typeof maxID);
+    const result = Array.isArray(maxID);
+    console.log(result);
+}
+
 import createPrompt from 'prompt-sync';
 
 let prompt = createPrompt();
@@ -57,6 +64,8 @@ function getInput(promptText, validator, transformer) {
 	}
 	return value;
 }
+
+
 
 // Validator functions -------------------------------------
 
@@ -177,7 +186,8 @@ function searchByName() {
 
 const main = async () => {
 	// Get the command the user wants to execute
-	const command = process.argv[2].toLowerCase();
+    const command = process.argv[2]
+        // .toLowerCase();
 
 	switch (command) {
 		case 'list':
@@ -205,7 +215,7 @@ const main = async () => {
 // Upon application start:  using promise chaining to say that loading data is the first step, and then we'll run our main function, and then we'll add a catch to catch any errors that happen within the overall startup process.
 
 loadData()
-	.then(main)
+    .then(getNextEmployeeID)
 	.catch((err) => {
 		console.error("Can't complete start up process");
 		throw err;
@@ -215,7 +225,11 @@ loadData()
     
 // Solution:
 
-// 1) create a function to know what's the next ID is for a new employee. Create under getInput function definition, a new synchronously function called, getNextEmployeeID.
+// 1) create a function to know what's the next ID is for a new employee. Create under getInput function definition, a new synchronously arrow function called, getNextEmployeeID.
+
+// const getNextEmployeeID = () => {
+//     const maxID = employees.map(emp => console.log(emp.id)); 
+// }
 
 //  figure out what the biggest ID in terms of the max value of the number for IDs across all employees using the array object called map, calling it on our employees, and return a value from each item in the array, the id of each item.
 
