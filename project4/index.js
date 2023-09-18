@@ -113,7 +113,7 @@ function listEmployees() {
 	console.log(`Employee list completed`);
 }
 
-function addEmployee() {
+async function addEmployee() {
 	console.log(`Add Employee -----------------------------`);
 	console.log('');
     let employee = {};
@@ -145,6 +145,8 @@ function addEmployee() {
     );
     // add new employee to the employees array.
     employees.push(employee);
+    // Rewrite the data and save it again.Take the existing data, modify it, and then save the updated version. This process involves overwriting the previous version of the data with the new one which means to write the modified data to the same location where it was originally stored.
+    await writeData();
 }
 
 // Search for employees by id
@@ -201,7 +203,7 @@ const main = async () => {
 			break;
 
 		case 'add':
-			addEmployee();
+			await addEmployee();
 			break;
 
 		case 'search-by-id':
