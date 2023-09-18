@@ -116,7 +116,9 @@ function listEmployees() {
 function addEmployee() {
 	console.log(`Add Employee -----------------------------`);
 	console.log('');
-	let employee = {};
+    let employee = {};
+    // add in the id
+    employees.id = getNextEmployeeID(); 
 	employee.firstName = getInput('First Name: ', isStringInputValid);
 	employee.lastName = getInput('Last Name: ', isStringInputValid);
 	let startDateYear = getInput(
