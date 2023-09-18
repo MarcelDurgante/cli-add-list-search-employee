@@ -8,11 +8,7 @@
 
 import fs from 'node:fs/promises';
 
-// Global variables --------------------------------------------------------
-// we previously got employee from loading in the JSON using the import statement (projects 1 and 2), but here we're going to create an empty array, and read in the data from the data.json file and populate this array on startup of the application.But to do that, we'll need to write some files to actually handle loading data, as well as writing data back to that JSON file.
 let employees = [];
-
-// Loading and writin data to the filesystem --------------------------
 
 const loadData = async () => {
 	try {
@@ -36,14 +32,6 @@ const writeData = async () => {
 };
 
 const getNextEmployeeID = () => {
-    // employees.map(emp => emp.id) returns a new array with all the employees IDs (see output below). But Math.max is not designed to take an array. Math.max is expecting that we're going to list a bunch of values as parametersneeds so that is the reason for using the '...' spread operator. It will convert that into a list of parameters for the Math.max function
-    /* [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
-        12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
-        24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35,
-        36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47,
-        48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59
-    ] */
 	const maxID = Math.max(...employees.map((emp) => emp.id));
 	console.log(maxID + 1);
 	return maxID + 1;
@@ -53,7 +41,6 @@ import createPrompt from 'prompt-sync';
 
 let prompt = createPrompt();
 
-// Arrow function to log out employee
 const logEmployee = (employee) => {
 	Object.entries(employee).forEach((entry) => {
 		console.log(`${entry[0]}: ${entry[1]}`);
@@ -116,9 +103,9 @@ function listEmployees() {
 async function addEmployee() {
 	console.log(`Add Employee -----------------------------`);
 	console.log('');
-    let employee = {};
-    // add in the id
-    employees.id = getNextEmployeeID(); 
+	let employee = {};
+	// add in the id
+	employees.id = getNextEmployeeID();
 	employee.firstName = getInput('First Name: ', isStringInputValid);
 	employee.lastName = getInput('Last Name: ', isStringInputValid);
 	let startDateYear = getInput(
@@ -142,11 +129,9 @@ async function addEmployee() {
 		'Is employee active (yes or no): ',
 		isBooleanInputValid,
 		(i) => i === 'yes'
-    );
-    // add new employee to the employees array.
-    employees.push(employee);
-    // Rewrite the data and save it again.Take the existing data, modify it, and then save the updated version. This process involves overwriting the previous version of the data with the new one which means to write the modified data to the same location where it was originally stored.
-    await writeData();
+	);
+	employees.push(employee);
+	await writeData();
 }
 
 // Search for employees by id
@@ -190,12 +175,8 @@ function searchByName() {
 
 // Application execution ---------------------------
 
-// Wrap our logic around Application execution creating a new async arrow function 'main' to startup process where the data is loaded before anything by moving Application execution inside of this function.
-
 const main = async () => {
-	// Get the command the user wants to execute
-	const command = process.argv[2];
-	// .toLowerCase();
+	const command = process.argv[2].toLowerCase();
 
 	switch (command) {
 		case 'list':
@@ -219,8 +200,6 @@ const main = async () => {
 			process.exit(1);
 	}
 };
-
-// Upon application start:  using promise chaining to say that loading data is the first step, and then we'll run our main function, and then we'll add a catch to catch any errors that happen within the overall startup process.
 
 loadData()
 	.then(main)
