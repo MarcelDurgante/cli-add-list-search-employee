@@ -142,10 +142,9 @@ function addEmployee() {
 		'Is employee active (yes or no): ',
 		isBooleanInputValid,
 		(i) => i === 'yes'
-	);
-	// // JSON OBJECT
-	// const json = JSON.stringify(employee, null, 2);
-	// console.log(`Employee: ${json}`);
+    );
+    // add new employee to the employees array.
+    employees.push(employee);
 }
 
 // Search for employees by id
