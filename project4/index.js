@@ -143,9 +143,9 @@ function addEmployee() {
 		isBooleanInputValid,
 		(i) => i === 'yes'
 	);
-	// JSON OBJECT
-	const json = JSON.stringify(employee, null, 2);
-	console.log(`Employee: ${json}`);
+	// // JSON OBJECT
+	// const json = JSON.stringify(employee, null, 2);
+	// console.log(`Employee: ${json}`);
 }
 
 // Search for employees by id
