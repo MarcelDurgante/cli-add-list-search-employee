@@ -36,11 +36,18 @@ const writeData = async () => {
 };
 
 const getNextEmployeeID = () => {
-    const maxID = employees.map(emp => console.log(emp.id));
-    console.log(typeof maxID);
-    const result = Array.isArray(maxID);
-    console.log(result);
-}
+    // employees.map(emp => emp.id) returns a new array with all the employees IDs (see output below). But Math.max is not designed to take an array. Math.max is expecting that we're going to list a bunch of values as parametersneeds so that is the reason for using the '...' spread operator. It will convert that into a list of parameters for the Math.max function
+    /* [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+        12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
+        24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35,
+        36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47,
+        48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59
+    ] */
+	const maxID = Math.max(...employees.map((emp) => emp.id));
+	console.log(maxID + 1);
+	return maxID + 1;
+};
 
 import createPrompt from 'prompt-sync';
 
@@ -64,8 +71,6 @@ function getInput(promptText, validator, transformer) {
 	}
 	return value;
 }
-
-
 
 // Validator functions -------------------------------------
 
@@ -186,8 +191,8 @@ function searchByName() {
 
 const main = async () => {
 	// Get the command the user wants to execute
-    const command = process.argv[2]
-        // .toLowerCase();
+	const command = process.argv[2];
+	// .toLowerCase();
 
 	switch (command) {
 		case 'list':
@@ -215,37 +220,8 @@ const main = async () => {
 // Upon application start:  using promise chaining to say that loading data is the first step, and then we'll run our main function, and then we'll add a catch to catch any errors that happen within the overall startup process.
 
 loadData()
-    .then(getNextEmployeeID)
+	.then(main)
 	.catch((err) => {
 		console.error("Can't complete start up process");
 		throw err;
 	});
-
-// Problem: handle when we add in a new employee give them an ID that follows the same concept that has been put in place with the sample data (data.json / numeric / ordered IDs)
-    
-// Solution:
-
-// 1) create a function to know what's the next ID is for a new employee. Create under getInput function definition, a new synchronously arrow function called, getNextEmployeeID.
-
-// const getNextEmployeeID = () => {
-//     const maxID = employees.map(emp => console.log(emp.id)); 
-// }
-
-//  figure out what the biggest ID in terms of the max value of the number for IDs across all employees using the array object called map, calling it on our employees, and return a value from each item in the array, the id of each item.
-
-// it will create a new array:
-// so imagine this new array that has all of the different IDs from 0 to 1, 2, so on, and so forth. It has all the values for each of the employees in our array
-
-// The problem is, //>Math.max is not designed to take an array.
-
-        // Math.max is expecting that we're going to list a bunch of values as parameters.So in this case, if we passed in Math.max and we did 1, 2, 3, it would return 3, because in that case, that is the maximum value.
-
-// Well, we can do this here utilizing something called //>spread syntax.
-
-        // The spread syntax allows an iterable object such as an array or string to be expanded in places where 0 or more arguments for function calls or elements for array literals are expected.
-
-// So, this is what we're going to utilize here to basically change it out from an array into something that our Math.max function can actually use.
-
-        // We'll utilize spread syntax at the very beginning, adding in three dots, and it will convert that into a list of parameters for the Math.max function, which should give us our maximum ID, and then we'll simply return 1. 
-        
-// Now the way that we'll integrate this into our application is simply after we create our new employee, we will go in and add in the ID. 
