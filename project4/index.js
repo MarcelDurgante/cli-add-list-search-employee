@@ -1,9 +1,12 @@
 /**
  * Objectives:
  *
- * a) Loading data using a file on the local file system
- * b) Utilizing asynchronous logic with promises and async/await
- * c) Persist data beyond a single execution of the application
+ * a. Review a public API for currency conversion.
+ * b. Sign up for a free API key.
+ * c. Integrate the API into the employee application.
+ * d. Test the API with Postman.
+ * e. Implement the API within JavaScript using fetch.
+ * 
  */
 
 import fs from 'node:fs/promises';
