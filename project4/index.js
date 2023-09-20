@@ -1,11 +1,10 @@
 /**
  * Objectives:
  *
- * a. Review a public API for currency conversion.
- * b. Sign up for a free API key.
- * c. Integrate the API into the employee application.
- * d. Test the API with Postman.
- * e. Implement the API within JavaScript using fetch.
+ * a. integrating the currency data from the public API.
+ * b. adding additional prompts for salary fields, 
+ * c. displaying formatted currency fields, 
+ * d. verifying our data persistence.
  * 
  */
 
