@@ -2,51 +2,85 @@
  * Objectives:
  *
  * a. integrating the currency data from the public API.
- * b. adding additional prompts for salary fields, 
- * c. displaying formatted currency fields, 
+ * b. adding additional prompts for salary fields,
+ * c. displaying formatted currency fields,
  * d. verifying our data persistence.
- * 
+ *
  */
 
 import fs from 'node:fs/promises';
+import fetch from 'cross-fetch';
+
+// Global variables ----------------------------------------------------------------------
 
 let employees = [];
+let currencyData;
+
+// Currency Data ----------------------------------------------------------------------
+
+const getCurrencyConversionData = async () => {
+	var requestOptions = {
+		method: 'GET',
+		redirect: 'follow',
+	};
+	const response = await fetch(
+		'http://api.exchangeratesapi.io/v1/latest?access_key=f31a79670d602eaa6aa146bb8e632945',
+		requestOptions
+	);
+	if (!response.ok) {
+		throw new Error('Can not fetch currency data');
+	}
+	currencyData = await response.json();
+};
+
+const getSalary = (amountEUR, currency) => {
+	const amount =
+		currency === 'EUR'
+			? amountEUR
+			: amountEUR * currencyData.rates[currency];
+	const formatter = Intl.NumberFormat('fr-FR', {
+		style: 'currency',
+		currency: currency,
+	});
+	return formatter.format(amount);
+};
+
+// Loading and writing data to the filesystem ----------------------------
 
 const loadData = async () => {
-	try {
-		console.log('Loading employees...');
-		const fileData = await fs.readFile('data.json', 'utf-8');
-		employees = JSON.parse(fileData);
-	} catch (err) {
-		console.error("Can't load employees.");
-		throw err;
-	}
-};
+    console.log("Loading employees.....");
+    try {
+        const fileData = await fs.readFile('./data.json');
+        employees = JSON.parse(fileData);
+    } catch (err) {
+        console.error("Cannot load in employees");
+        throw err;
+    }
+}
 
 const writeData = async () => {
-	try {
-		console.log('Writing employees...');
-		fs.writeFile('data.json', JSON.stringify(employees, null, 2));
-	} catch (err) {
-		console.error("Can't write employees data.");
-		throw err;
-	}
-};
-
-const getNextEmployeeID = () => {
-	const maxID = Math.max(...employees.map((emp) => emp.id));
-	console.log(maxID + 1);
-	return maxID + 1;
-};
+    console.log("Writing employees.....");
+    try {
+        await fs.writeFile('./data.json', JSON.stringify(employees, null, 2));
+    } catch (err) {
+        console.error("Cannot write employees data.");
+        throw err;
+    }
+}
 
 import createPrompt from 'prompt-sync';
-
 let prompt = createPrompt();
 
 const logEmployee = (employee) => {
 	Object.entries(employee).forEach((entry) => {
-		console.log(`${entry[0]}: ${entry[1]}`);
+		if (entry[0] !== 'salaryEUR' || entry[0] !== 'localeCurrency') {
+			console.log(`${entry[0]}: ${entry[1]}`);
+		}
 	});
+	console.log(`Salary EUR: ${getSalary(employee.salaryEUR, 'EUR')}`);
+	console.log(
+		`Local Salary: ${getSalary(employee.salaryEUR, employee.localCurrency)}`
+	);
 };
 
 function getInput(promptText, validator, transformer) {
@@ -61,7 +95,17 @@ function getInput(promptText, validator, transformer) {
 	return value;
 }
 
+const getNextEmployeeID = () => {
+	const maxID = Math.max(...employees.map((emp) => emp.id));
+	return maxID + 1;
+};
+
 // Validator functions -------------------------------------
+
+const isCurrencyCodeValid = function (code) {
+	const currencyCodes = Object.keys(currencyData.rates);
+	return currencyCodes.indexOf(code) > -1; // if the index of the code passed exists in the array of currancy rates exist it will return true as index will be zero or greater.
+};
 
 const isStringInputValid = (input) => {
 	return input ? true : false;
@@ -82,20 +126,12 @@ const isIntegerValid = (min, max) => {
 	};
 };
 
-const isIdValid = (input) => {
-	let numValue = Number(input);
-	if (!Number.isInteger(numValue) || numValue < 0 || numValue == -1) {
-		return false;
-	}
-	return true;
-};
-
 // Application commands functions----------------------------------
 
 function listEmployees() {
 	console.log(`Employee List ----------------------------`);
-	console.log('');
-	employees.forEach((employee) => {
+    console.log('');
+    	employees.forEach((employee) => {
 		logEmployee(employee);
 		prompt(`Press enter to continue...`);
 	});
@@ -106,8 +142,7 @@ async function addEmployee() {
 	console.log(`Add Employee -----------------------------`);
 	console.log('');
 	let employee = {};
-	// add in the id
-	employees.id = getNextEmployeeID();
+	employee.id = getNextEmployeeID(); //  problem: ID undefined
 	employee.firstName = getInput('First Name: ', isStringInputValid);
 	employee.lastName = getInput('Last Name: ', isStringInputValid);
 	let startDateYear = getInput(
@@ -132,11 +167,21 @@ async function addEmployee() {
 		isBooleanInputValid,
 		(i) => i === 'yes'
 	);
+	employee.salaryEUR = getInput(
+		'Annual salary in euros: ',
+		isIntegerValid(10000, 1000000000)
+	);
+	employee.localCurrency = getInput(
+		'Local currency (3 letters): ',
+		isCurrencyCodeValid
+	);
+
 	employees.push(employee);
 	await writeData();
 }
 
 // Search for employees by id
+
 function searchById() {
 	const id = getInput('Employee ID: ', null, Number);
 	const result = employees.find((e) => e.id === id);
@@ -148,6 +193,7 @@ function searchById() {
 }
 
 // Search by name
+
 function searchByName() {
 	let firstNameSearch = getInput('First Name: ').toLowerCase();
 	let lastNameSearch = getInput('Last Name: ').toLowerCase();
@@ -178,7 +224,8 @@ function searchByName() {
 // Application execution ---------------------------
 
 const main = async () => {
-	const command = process.argv[2].toLowerCase();
+    const command = process.argv[2];
+    // .toLowerCase(); it is returning as undefined
 
 	switch (command) {
 		case 'list':
@@ -204,6 +251,7 @@ const main = async () => {
 };
 
 loadData()
+	.then(getCurrencyConversionData)
 	.then(main)
 	.catch((err) => {
 		console.error("Can't complete start up process");
