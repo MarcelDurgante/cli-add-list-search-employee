@@ -125,8 +125,6 @@ async function addEmployee() {
     'Local currency (3 letters): ',
     isCurrencyCodeValid,
   );
-
-  // add new call to our insert employee function
   await insertEmployee(employee);
 }
 
