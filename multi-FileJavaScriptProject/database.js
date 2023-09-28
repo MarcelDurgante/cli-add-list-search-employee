@@ -12,7 +12,7 @@ const createTable = async (db) => {
     startDate TEXT NOT NULL,
     isActive INTEGER
   )`;
-  return await db.run(query);
+  return db.run(query);
 };
 
 let _db;
@@ -28,7 +28,7 @@ const getConnection = async () => {
   return _db;
 };
 
-const closeConnection = async (db) => {
+const closeConnection = async () => {
   if (_db) {
     await _db.close();
     _db = undefined;

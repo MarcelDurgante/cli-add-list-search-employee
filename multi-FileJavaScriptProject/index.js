@@ -58,7 +58,7 @@ const getNextEmployeeID = () => {
 
 // Validator functions -------------------------------------
 
-const isCurrencyCodeValid = function (code) {
+const isCurrencyCodeValid = (code) => {
   const currencyCodes = Object.keys(currencyData.rates);
   return currencyCodes.indexOf(code) > -1;
 };
@@ -149,16 +149,10 @@ function searchByName() {
   const firstNameSearch = getInput('First Name: ').toLowerCase();
   const lastNameSearch = getInput('Last Name: ').toLowerCase();
   const results = employees.filter((employee) => {
-    if (
-      firstNameSearch
-			&& !employee.firstName.toLowerCase().includes(firstNameSearch)
-    ) {
+    if (firstNameSearch && !employee.firstName.toLowerCase().includes(firstNameSearch)) {
       return false;
     }
-    if (
-      lastNameSearch
-			&& !employee.lastName.toLowerCase().includes(lastNameSearch)
-    ) {
+    if (lastNameSearch && !employee.lastName.toLowerCase().includes(lastNameSearch)) {
       return false;
     }
     return true;
@@ -203,8 +197,7 @@ const main = async () => {
 
 Promise.all([getAllEmployees(), getCurrencyConversionData()])
   .then((results) => {
-    employees = results[0];
-    currencyData = results[1];
+    [employees, currencyData] = results;
     return main();
   })
   .catch((err) => {
