@@ -250,8 +250,7 @@ const main = async () => {
 	}
 };
 
-loadData()
-	.then(getCurrencyConversionData)
+Promise.all([loadData(), getCurrencyConversionData() ])
 	.then(main)
 	.catch((err) => {
 		console.error("Can't complete start up process");
