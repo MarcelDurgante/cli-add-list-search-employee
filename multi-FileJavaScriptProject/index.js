@@ -1,4 +1,4 @@
-import { loadData, writeData } from './data.js';
+import { getAllEmployees, insertEmployee } from './database.js';
 import { getCurrencyConversionData, getSalary } from './currency.js';
 import chalk from 'chalk';
 
@@ -37,6 +37,9 @@ function getInput(promptText, validator, transformer) {
 }
 
 const getNextEmployeeID = () => {
+    if (employees.length === 0) {
+        return 1;
+    }
 	const maxID = Math.max(...employees.map((emp) => emp.id));
 	return maxID + 1;
 };
@@ -85,7 +88,7 @@ async function addEmployee() {
 	let employee = {};
 	employee.id = getNextEmployeeID(); 
 	employee.firstName = getInput('First Name: ', isStringInputValid);
-	employee.lastName = getInput('Last Name: ', isStringInputValid);
+    employee.lastName = getInput('Last Name: ', isStringInputValid);
 	let startDateYear = getInput(
 		'Employee Start Year (1990-2023): ',
 		isIntegerValid(1990, 2023)
@@ -191,7 +194,7 @@ const main = async () => {
 	}
 };
 
-Promise.all([loadData(), getCurrencyConversionData()])
+Promise.all([getAllEmployees(), getCurrencyConversionData()])
     .then(results => {
         employees = results[0];
         currencyData = results[1];
