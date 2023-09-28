@@ -694,5 +694,23 @@
     "isActive": true,
     "salaryUSD": "100000",
     "localCurrency": "GBP"
+  },
+  {
+    "id": 64,
+    "firstName": "sldfkjs",
+    "lastName": "a;sdlfk",
+    "startDate": "1990-06-06T22:00:00.000Z",
+    "isActive": true,
+    "salaryUSD": "200000",
+    "localCurrency": "JPY"
+  },
+  {
+    "id": 65,
+    "firstName": "f's;dlfks",
+    "lastName": "lskjdfs;",
+    "startDate": "2022-12-31T23:00:00.000Z",
+    "isActive": true,
+    "salaryUSD": "100000",
+    "localCurrency": "EUR"
   }
 ]
