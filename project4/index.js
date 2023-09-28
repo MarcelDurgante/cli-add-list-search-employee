@@ -31,7 +31,6 @@ const getCurrencyConversionData = async () => {
 		throw new Error('Can not fetch currency data');
 	}
     currencyData = await response.json();
-    console.log('CURRENCY DATA', currencyData);
 };
 
 const getSalary = (amountUSD, currency) => {
