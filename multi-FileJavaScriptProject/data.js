@@ -1,5 +1,6 @@
 // Loading and writing data to the filesystem ----------------------------
 import fs from 'node:fs/promises';
+import chalk from 'chalk';
 
 export const loadData = async () => {
     console.log(`${chalk.magenta.bold('Loading employees... ')}`);
