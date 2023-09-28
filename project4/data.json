@@ -712,5 +712,14 @@
     "isActive": true,
     "salaryUSD": "100000",
     "localCurrency": "EUR"
+  },
+  {
+    "id": 66,
+    "firstName": "marcel",
+    "lastName": "dur",
+    "startDate": "1995-08-04T22:00:00.000Z",
+    "isActive": true,
+    "salaryUSD": "5000000",
+    "localCurrency": "EUR"
   }
 ]

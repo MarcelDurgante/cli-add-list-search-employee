@@ -10,6 +10,7 @@
 
 import fs from 'node:fs/promises';
 import fetch from 'cross-fetch';
+import chalk from 'chalk';
 
 // Global variables ----------------------------------------------------------------------
 
@@ -48,7 +49,7 @@ const getSalary = (amountUSD, currency) => {
 // Loading and writing data to the filesystem ----------------------------
 
 const loadData = async () => {
-    console.log("Loading employees.....");
+    console.log(`${chalk.magenta.bold('Loading employees... ')}`);
     try {
         const fileData = await fs.readFile('./data.json');
         employees = JSON.parse(fileData);
@@ -59,7 +60,7 @@ const loadData = async () => {
 }
 
 const writeData = async () => {
-    console.log("Writing employees.....");
+    console.log(`${chalk.blue.bold('Writing employees...')}`);
     try {
         await fs.writeFile('./data.json', JSON.stringify(employees, null, 2));
     } catch (err) {
@@ -74,13 +75,12 @@ let prompt = createPrompt();
 const logEmployee = (employee) => {
 	Object.entries(employee).forEach((entry) => {
 		if (entry[0] !== 'salaryUSD' || entry[0] !== 'localeCurrency') {
-			console.log(`${entry[0]}: ${entry[1]}`);
+            console.log(`${chalk.blue.bold(`${entry[0]}:`)}  ${entry[1]}`);
+            
 		}
-	});
-	console.log(`Salary USD: ${getSalary(employee.salaryUSD, 'USD')}`);
-	console.log(
-		`Local Salary: ${getSalary(employee.salaryUSD, employee.localCurrency)}`
-	);
+    });
+    console.log(`${chalk.blue.bold('Salary USD: ')}  ${getSalary(employee.salaryUSD, 'USD')}`);
+    console.log(`${chalk.blue.bold('Local Salary: ')}  ${getSalary(employee.salaryUSD, employee.localCurrency)}`);
 };
 
 function getInput(promptText, validator, transformer) {
