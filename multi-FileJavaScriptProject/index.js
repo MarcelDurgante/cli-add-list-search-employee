@@ -1,73 +1,12 @@
-/**
- * Objectives:
- *
- * a. integrating the currency data from the public API.
- * b. adding additional prompts for salary fields,
- * c. displaying formatted currency fields,
- * d. verifying our data persistence.
- *
- */
-
-import fs from 'node:fs/promises';
-import fetch from 'cross-fetch';
+import { loadData, writeData } from './data.js';
+import { getCurrencyConversionData, getSalary } from './currency.js';
 import chalk from 'chalk';
+
 
 // Global variables ----------------------------------------------------------------------
 
 let employees = [];
 let currencyData;
-
-// Currency Data ----------------------------------------------------------------------
-
-const getCurrencyConversionData = async () => {
-	var requestOptions = {
-		method: 'GET',
-		redirect: 'follow',
-	};
-	const response = await fetch(
-		'https://openexchangerates.org/api/latest.json?app_id=d4f7c0396a5148fd994260b05bdf5a4a',
-		requestOptions
-	);
-	if (!response.ok) {
-		throw new Error('Can not fetch currency data');
-	}
-    currencyData = await response.json();
-};
-
-const getSalary = (amountUSD, currency) => {
-	const amount =
-		currency === 'USD'
-			? amountUSD
-			: amountUSD * currencyData.rates[currency];
-	const formatter = Intl.NumberFormat('en-US', {
-        style: 'currency', 
-		currency: currency,
-	});
-	return formatter.format(amount);
-};
-
-// Loading and writing data to the filesystem ----------------------------
-
-const loadData = async () => {
-    console.log(`${chalk.magenta.bold('Loading employees... ')}`);
-    try {
-        const fileData = await fs.readFile('./data.json');
-        employees = JSON.parse(fileData);
-    } catch (err) {
-        console.error("Cannot load in employees");
-        throw err;
-    }
-}
-
-const writeData = async () => {
-    console.log(`${chalk.blue.bold('Writing employees...')}`);
-    try {
-        await fs.writeFile('./data.json', JSON.stringify(employees, null, 2));
-    } catch (err) {
-        console.error("Cannot write employees data.");
-        throw err;
-    }
-}
 
 import createPrompt from 'prompt-sync';
 let prompt = createPrompt();
@@ -80,8 +19,8 @@ const logEmployee = (employee) => {
             
 		}
     });
-    console.log(`${chalk.blue.bold('Salary USD: ')} ${chalk.gray.bold(`${ getSalary(employee.salaryUSD, 'USD')}`)}`);
-    console.log(`${chalk.blue.bold('Local Salary: ')}  ${chalk.gray.bold(`${getSalary(employee.salaryUSD, employee.localCurrency)}`)}`);
+    console.log(`${chalk.blue.bold('Salary USD: ')} ${chalk.gray.bold(`${ getSalary(employee.salaryUSD, 'USD', currencyData)}`)}`);
+    console.log(`${chalk.blue.bold('Local Salary: ')}  ${chalk.gray.bold(`${getSalary(employee.salaryUSD, employee.localCurrency, currencyData)}`)}`);
 };
 
 function getInput(promptText, validator, transformer) {
@@ -179,7 +118,7 @@ async function addEmployee() {
 	);
 
 	employees.push(employee);
-	await writeData();
+	await writeData(employees);
 }
 
 // Search for employees by id
