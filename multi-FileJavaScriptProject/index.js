@@ -13,7 +13,6 @@ const prompt = createPrompt();
 const logEmployee = (employee) => {
   Object.entries(employee).forEach((entry) => {
     if (entry[0] !== 'salaryUSD' || entry[0] !== 'localeCurrency') {
-      // console.log(`${chalk.blue.bold(`${entry[0]}:`)}  ${entry[1]}`);
       console.log(
         `${chalk.blue(entry[0])}: ${chalk.gray.bold(entry[1])}`,
       );
@@ -169,8 +168,7 @@ function searchByName() {
 // Application execution ---------------------------
 
 const main = async () => {
-  const command = process.argv[2];
-  // .toLowerCase(); it is returning as undefined
+  const command = process.argv[2].toLowerCase();
 
   switch (command) {
     case 'list':
