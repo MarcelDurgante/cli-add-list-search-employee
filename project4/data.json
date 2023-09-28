@@ -667,5 +667,32 @@
     "isActive": true,
     "salaryEUR": "50000",
     "localCurrency": "USD"
+  },
+  {
+    "id": 61,
+    "firstName": "Marilene",
+    "lastName": "Durgante",
+    "startDate": "1989-12-31T23:00:00.000Z",
+    "isActive": true,
+    "salaryEUR": "100000",
+    "localCurrency": "GBP"
+  },
+  {
+    "id": 62,
+    "firstName": "sdlkjs",
+    "lastName": "sdlfkj",
+    "startDate": "1990-02-02T23:00:00.000Z",
+    "isActive": true,
+    "salaryEUR": "30000",
+    "localCurrency": "USD"
+  },
+  {
+    "id": 63,
+    "firstName": "victory",
+    "lastName": "doublel",
+    "startDate": "2023-11-30T23:00:00.000Z",
+    "isActive": true,
+    "salaryUSD": "100000",
+    "localCurrency": "GBP"
   }
 ]

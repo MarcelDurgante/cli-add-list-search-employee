@@ -24,22 +24,23 @@ const getCurrencyConversionData = async () => {
 		redirect: 'follow',
 	};
 	const response = await fetch(
-		'http://api.exchangeratesapi.io/v1/latest?access_key=f31a79670d602eaa6aa146bb8e632945',
+		'https://openexchangerates.org/api/latest.json?app_id=d4f7c0396a5148fd994260b05bdf5a4a',
 		requestOptions
 	);
 	if (!response.ok) {
 		throw new Error('Can not fetch currency data');
 	}
-	currencyData = await response.json();
+    currencyData = await response.json();
+    console.log('CURRENCY DATA', currencyData);
 };
 
-const getSalary = (amountEUR, currency) => {
+const getSalary = (amountUSD, currency) => {
 	const amount =
-		currency === 'EUR'
-			? amountEUR
-			: amountEUR * currencyData.rates[currency];
-	const formatter = Intl.NumberFormat('fr-FR', {
-		style: 'currency',
+		currency === 'USD'
+			? amountUSD
+			: amountUSD * currencyData.rates[currency];
+	const formatter = Intl.NumberFormat('en-US', {
+        style: 'currency', 
 		currency: currency,
 	});
 	return formatter.format(amount);
@@ -73,13 +74,13 @@ let prompt = createPrompt();
 
 const logEmployee = (employee) => {
 	Object.entries(employee).forEach((entry) => {
-		if (entry[0] !== 'salaryEUR' || entry[0] !== 'localeCurrency') {
+		if (entry[0] !== 'salaryUSD' || entry[0] !== 'localeCurrency') {
 			console.log(`${entry[0]}: ${entry[1]}`);
 		}
 	});
-	console.log(`Salary EUR: ${getSalary(employee.salaryEUR, 'EUR')}`);
+	console.log(`Salary USD: ${getSalary(employee.salaryUSD, 'USD')}`);
 	console.log(
-		`Local Salary: ${getSalary(employee.salaryEUR, employee.localCurrency)}`
+		`Local Salary: ${getSalary(employee.salaryUSD, employee.localCurrency)}`
 	);
 };
 
@@ -167,8 +168,8 @@ async function addEmployee() {
 		isBooleanInputValid,
 		(i) => i === 'yes'
 	);
-	employee.salaryEUR = getInput(
-		'Annual salary in euros: ',
+	employee.salaryUSD = getInput(
+		'Annual salary in USD: ',
 		isIntegerValid(10000, 1000000000)
 	);
 	employee.localCurrency = getInput(
