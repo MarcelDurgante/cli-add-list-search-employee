@@ -2,7 +2,6 @@ import { getAllEmployees, insertEmployee } from './database.js';
 import { getCurrencyConversionData, getSalary } from './currency.js';
 import chalk from 'chalk';
 
-
 // Global variables ----------------------------------------------------------------------
 
 let employees = [];
@@ -14,13 +13,26 @@ let prompt = createPrompt();
 const logEmployee = (employee) => {
 	Object.entries(employee).forEach((entry) => {
 		if (entry[0] !== 'salaryUSD' || entry[0] !== 'localeCurrency') {
-            // console.log(`${chalk.blue.bold(`${entry[0]}:`)}  ${entry[1]}`);
-            console.log(`${chalk.blue(entry[0])}: ${chalk.gray.bold(entry[1])}`);
-            
+			// console.log(`${chalk.blue.bold(`${entry[0]}:`)}  ${entry[1]}`);
+			console.log(
+				`${chalk.blue(entry[0])}: ${chalk.gray.bold(entry[1])}`
+			);
 		}
-    });
-    console.log(`${chalk.blue.bold('Salary USD: ')} ${chalk.gray.bold(`${ getSalary(employee.salaryUSD, 'USD', currencyData)}`)}`);
-    console.log(`${chalk.blue.bold('Local Salary: ')}  ${chalk.gray.bold(`${getSalary(employee.salaryUSD, employee.localCurrency, currencyData)}`)}`);
+	});
+	console.log(
+		`${chalk.blue.bold('Salary USD: ')} ${chalk.gray.bold(
+			`${getSalary(employee.salaryUSD, 'USD', currencyData)}`
+		)}`
+	);
+	console.log(
+		`${chalk.blue.bold('Local Salary: ')}  ${chalk.gray.bold(
+			`${getSalary(
+				employee.salaryUSD,
+				employee.localCurrency,
+				currencyData
+			)}`
+		)}`
+	);
 };
 
 function getInput(promptText, validator, transformer) {
@@ -28,8 +40,8 @@ function getInput(promptText, validator, transformer) {
 	if (validator && !validator(value)) {
 		console.error(`--Invalid input`);
 		return getInput(promptText, validator, transformer);
-    }
-    
+	}
+
 	if (transformer) {
 		return transformer(value);
 	}
@@ -37,9 +49,9 @@ function getInput(promptText, validator, transformer) {
 }
 
 const getNextEmployeeID = () => {
-    if (employees.length === 0) {
-        return 1;
-    }
+	if (employees.length === 0) {
+		return 1;
+	}
 	const maxID = Math.max(...employees.map((emp) => emp.id));
 	return maxID + 1;
 };
@@ -74,8 +86,8 @@ const isIntegerValid = (min, max) => {
 
 function listEmployees() {
 	console.log(`Employee List ----------------------------`);
-    console.log('');
-    	employees.forEach((employee) => {
+	console.log('');
+	employees.forEach((employee) => {
 		logEmployee(employee);
 		prompt(`Press enter to continue...`);
 	});
@@ -86,9 +98,10 @@ async function addEmployee() {
 	console.log(`Add Employee -----------------------------`);
 	console.log('');
 	let employee = {};
-	employee.id = getNextEmployeeID(); 
+	employee.id = getNextEmployeeID();
 	employee.firstName = getInput('First Name: ', isStringInputValid);
-    employee.lastName = getInput('Last Name: ', isStringInputValid);
+	employee.lastName = getInput('Last Name: ', isStringInputValid);
+	employee.email = getInput('Email: ', isStringInputValid);
 	let startDateYear = getInput(
 		'Employee Start Year (1990-2023): ',
 		isIntegerValid(1990, 2023)
@@ -120,8 +133,8 @@ async function addEmployee() {
 		isCurrencyCodeValid
 	);
 
-	employees.push(employee);
-	await writeData(employees);
+	// add new call to our insert employee function
+	await insertEmployee(employee);
 }
 
 // Search for employees by id
@@ -168,8 +181,8 @@ function searchByName() {
 // Application execution ---------------------------
 
 const main = async () => {
-    const command = process.argv[2];
-    // .toLowerCase(); it is returning as undefined
+	const command = process.argv[2];
+	// .toLowerCase(); it is returning as undefined
 
 	switch (command) {
 		case 'list':
@@ -195,11 +208,11 @@ const main = async () => {
 };
 
 Promise.all([getAllEmployees(), getCurrencyConversionData()])
-    .then(results => {
-        employees = results[0];
-        currencyData = results[1];
-        return main()
-    })
+	.then((results) => {
+		employees = results[0];
+		currencyData = results[1];
+		return main();
+	})
 	.catch((err) => {
 		console.error("Can't complete start up process");
 		throw err;
